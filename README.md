@@ -9,7 +9,7 @@ Mobile application for the borad game Crazy Pit Stop
 - [ ] Adding penalization button
 - [ ] Adding start button
 - [ ] Adding counter back modal
-- [ ] Adding game mode title and counter seconds
+- [x] Adding game mode title and counter seconds
 - [ ] Adding interrogation button
 - [ ] Game Mode cheatsheet screen
 - [ ] User manual screen
