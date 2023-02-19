@@ -4,7 +4,7 @@ Mobile application for the borad game Crazy Pit Stop
 
 ## TO-DO
 
-- [ ] Shadowing victory containers
+- [x] Shadowing victory containers
 - [ ] Adding losing points
 - [ ] Adding penalization button
 - [ ] Adding start button
@@ -13,3 +13,4 @@ Mobile application for the borad game Crazy Pit Stop
 - [ ] Adding interrogation button
 - [ ] Game Mode cheatsheet screen
 - [ ] User manual screen
+- [x] Adding penalization seconds
