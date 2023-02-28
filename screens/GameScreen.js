@@ -1,40 +1,57 @@
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 
-import PointsContainer from '../components/PointsContainer'
 import GameHeader from '../components/GameHeader'
+import VictoriesComponent from '../components/VictoriesComponent'
+import MistakesComponent from '../components/MistakesComponent'
 
-let victories = 1
-let isPenalized = false
+let actualVictoryPoints = 0
 
-function victoryContainers(gameMode) {
-  let pointsContainers = []
-  var extraStyle = "bg-slate-50	"
-  var textColor = "text-gray-500"
-  for (let i = 0; i < gameMode.maxVictoryPoints; i++) {
-    if (i <= victories) {
-      textColor = ""
-      if (i < victories) {
-        extraStyle = "bg-green-500"
-      }
-      if (i === victories) {
-        extraStyle = "bg-white shadow-lg shadow-black"
-      }
+function penalizationButtonStyle(isPenalized, setPenalization, gameMode) {
+  let penalizationButtonStyle = (<View></View>)
+
+  if (gameMode.hasPenalization) {
+    let pressFeedback = "bg-red-500 shadow-2xl shadow-black"
+    if (isPenalized) {
+      pressFeedback = "bg-red-600 shadow-inner scale-95"
     }
-    pointsContainers.push(<PointsContainer k={i+1} textColor={textColor} extraStyle={extraStyle} number={i+1}/>) 
-    textColor = "text-gray-500"
-    extraStyle = "bg-slate-50"   
+    penalizationButtonStyle = (
+      <View className="flex-1 w-full justify-center">
+        <View className="w-20 h-20 ml-6 justify-center md:max-w-lg md:h-28 md:mb-14" >
+          <Pressable key={"test"} className={`w-full h-full justify-center items-center rounded-xl rounded-br-3xl rounded-tl-3xl ${pressFeedback} border-2 border-black`}
+            onPress={() => setPenalization((isPenalized) => isPenalized = !isPenalized)}>
+            <View className="w-full items-center">
+              <Text className="text-white text-2xl md:text-6xl">-5 "</Text>
+            </View>
+          </Pressable>
+        </View>
+      </View>
+    )
   }
-  return (
-    <View className="flex items-center justify-center">  
-      {pointsContainers}
-    </View>
-  )
+
+  return penalizationButtonStyle
 }
 
 export default function GameScreen({ route, navigation }) {
-    var gameMode = route.params.gameMode;
+    let gameMode = route.params.gameMode;
+
+    const [isPenalized, setPenalization] = React.useState(0)
+
+    let penalizationButton = penalizationButtonStyle(isPenalized, setPenalization, gameMode)
+
+    let playButton = (
+      <View className="flex-1 w-full justify-center items-end">
+        <View className="w-20 h-20 mr-6 justify-center md:max-w-lg md:h-28 md:mb-14" >
+          <Pressable key={"test"} className="justify-center items-center rounded-xl rounded-bl-3xl rounded-tr-3xl bg-green-400 w-full h-full flex-row border-2 border-black"
+            onPress={() => alert("hey")}>
+            <View className="w-full items-center">
+              <Text className="text-white text-2xl md:text-6xl">Test</Text>
+            </View>
+          </Pressable>
+        </View>
+      </View>
+    )
   
     return (
       <View className="flex-1 bg-gray-500">
@@ -42,19 +59,17 @@ export default function GameScreen({ route, navigation }) {
         <GameHeader navigation={navigation} isPenalized={isPenalized} gameMode={gameMode} />
   
         <View className=" flex-1 flex-row w-full">
-          <View className="flex-1 w-full bg-white">
-            <Text>{gameMode.name.toUpperCase()}</Text>
-          </View>
-          {
-            victoryContainers(gameMode)
-          }
-          <View className="flex-1 w-full bg-white">
-            <Text>{gameMode.name.toUpperCase()}</Text>
-          </View>
+
+          {penalizationButton}
+
+          <VictoriesComponent actualVictoryPoints={actualVictoryPoints} maxVictoryPoints={gameMode.maxVictoryPoints}m/>
+          
+          {playButton}
+
         </View>
-        <View className="flex-1 flex-row w-full max-h-36">
-          <Text className="text-white">{gameMode.name.toUpperCase()}</Text>
-        </View>
+        
+        <MistakesComponent actualMistakePoints={0} maxMistakePoints={gameMode.maxLosePoints}></MistakesComponent>
+
         <StatusBar style="auto"/>
       </View>
     );
