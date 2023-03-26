@@ -18,16 +18,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danimr.crazypipstop"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/cpslogo.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.danimr.crazypipstop"
     },
     "web": {
       "favicon": "./assets/cpslogo.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ef17a15f-d807-4117-90c7-5bd39b604ee1"
+      }
     }
   }
 }
