@@ -5,10 +5,10 @@ Mobile application for the borad game Crazy Pit Stop
 ## TO-DO
 
 - [x] Shadowing victory containers
-- [ ] Adding losing points
+- [x] Adding losing points
 - [x] Adding penalization button
 - [x] Adding start button
-- [ ] Adding timer back modal
+- [x] Adding timer back modal
 - [x] Adding game mode title and counter seconds
 - [ ] Adding interrogation button
 - [ ] Game Mode cheatsheet screen
